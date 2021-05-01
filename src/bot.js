@@ -38,6 +38,12 @@ client.on('message', async (message) => {
             });
         }
 
+        if (command.substr(0, 7) == 'insult2') {
+            fetch(vars.url1).then((res) => {return res.text();}).then((text) => {
+                message.channel.send(`Hey, ${command.split(' ')[1]},  ${text.replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&gt;/g, '>')}`);
+            });
+        }
+
         if (command == 'identify') {
             message.reply(`I have consulted the gods who tell me with ${Math.floor(Math.random() * 100)}% certainty, you are a ${randElement(vars.fishEmoji)}`);
         }
