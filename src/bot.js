@@ -8,10 +8,31 @@ const client = new Client();
 client.login(process.env.TOKEN);
 
 client.on('ready', () => {
-    console.log(`${client.user.tag} has logged in.`);
+    console.log(`${client.user.tag} is online.`);
+
+    setInterval(async () => {
+        if (vars.users.length > 0) {
+            var tempUser = randElement(vars.users);
+            await client.user.setActivity(`${tempUser.username}`, { type: 'WATCHING' });
+        }
+    }, 60000);
+
+    var i = 0;
+    setInterval(async () => {
+        try {
+            await client.user.setStatus(vars.statuses[i%3]).then(() => console.log(`Updated status to ${vars.statuses[i%3]}`))
+        } catch (error) {
+            console.log(error);
+        }    
+        i++;
+    }, 60000);
 });
 
 client.on('message', async (message) => {
+    if (!vars.users.includes(message.author)) {
+        vars.users.push(message.author);
+    }
+
     if (message.author.bot) {
         return;
     }
@@ -46,6 +67,20 @@ client.on('message', async (message) => {
 
         if (command == 'identify') {
             message.reply(`I have consulted the gods who tell me with ${Math.floor(Math.random() * 100)}% certainty, you are a ${randElement(vars.fishEmoji)}`);
+        }
+
+        if (command.substr(0,7) == 'profile') {
+            if (message.embeds.length > 0) {
+                try {
+                    await client.user.setAvatar(message.embeds[0].url);
+                    console.log('Changed avatar');
+                } catch(error) {
+                    console.log('Changing avatar too fast');
+                }
+            }
+            /*} else {
+                client.user.setAvatar(message.author.displayAvatarURL());
+            }*/
         }
     }
 

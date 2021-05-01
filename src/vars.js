@@ -14,11 +14,17 @@ const url1 = 'https://insult.mattbas.org/api/insult.txt?template=' + 'Leave the 
 const url2 = 'https://evilinsult.com/generate_insult.php?lang=en';//&type=json';
 const url3 = 'https://insult.mattbas.org/api/insult.txt?template=' + 'You actual <adjective> <animal>. You are even more <adjective> than a <amount> of <adjective min=1 max=3> <animal> <animal_part>s!';
 
+var users = [];
+
+var statuses = ['online', 'idle', 'dnd', 'invisible'];
+
 module.exports = {
     blacklist: blacklist,
     allEmojis: emojis.split(','),
     fishEmoji: fishEmoji,
     url1: url1,
     url2: url2,
-    url3: url3
+    url3: url3,
+    users: users,
+    statuses: statuses
 }
