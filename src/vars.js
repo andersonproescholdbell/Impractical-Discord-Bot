@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 var blacklist = [];
+
 for (var s of process.env.BLACKLIST.split(',')) {
     blacklist.push(s);
 }
