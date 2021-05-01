@@ -19,5 +19,6 @@ module.exports = {
     allEmojis: emojis.split(','),
     fishEmoji: fishEmoji,
     url1: url1,
-    url2: url2
+    url2: url2,
+    url3: url3
 }
