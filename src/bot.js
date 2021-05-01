@@ -13,8 +13,14 @@ client.on('ready', () => {
     setInterval(async () => {
         if (vars.users.length > 0) {
             var tempUser = randElement(vars.users);
-            await client.user.setActivity(`${tempUser.username}`, { type: 'WATCHING' });
+            try {
+                await client.user.setActivity(`${tempUser.username}`, { type: 'WATCHING' });
+                console.log(`Now watching ${tempUser.username}`);
+            } catch(error) {
+                console.log('Error setting new activity.');
+            }
         }
+            
     }, 60000);
 
     var i = 0;
