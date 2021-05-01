@@ -12,7 +12,7 @@ const fishEmoji = [":fish:", ":tropical_fish:", ":blowfish:", ":fishing_pole_and
 
 const url1 = 'https://insult.mattbas.org/api/insult.txt?template=' + 'Leave the fish alone you <adjective min=2 max=5> <animal> <animal_part>. ';
 const url2 = 'https://evilinsult.com/generate_insult.php?lang=en';//&type=json';
-const url3 = 'https://insult.mattbas.org/api/insult.txt?template=' + 'You actual <adjective> <animal>. You <adjective> more than <amount> <article target=adj1> you absolute <adjective min=1 max=3> <animal> <animal_part>! ';
+const url3 = 'https://insult.mattbas.org/api/insult.txt?template=' + 'You actual <adjective> <animal>. You are even more <adjective> than a <amount> of <adjective min=1 max=3> <animal> <animal_part>s!';
 
 module.exports = {
     blacklist: blacklist,
