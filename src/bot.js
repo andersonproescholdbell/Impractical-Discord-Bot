@@ -90,7 +90,7 @@ client.on('message', async (message) => {
             }*/
         }
 
-        if (command.substr(0,7) == 'fishify') {
+        if (command.substr(0,7) == 'fishify' && message.author.id == vars.ADMIN) {
             var time = parseInt(command.split(' ')[1]);
             try {
                 if (vars.fishify[message.mentions.users.first().id] == undefined) {

@@ -24,6 +24,7 @@ var fishify = {};
 
 module.exports = {
     blacklist: blacklist,
+    ADMIN: parseInt(process.env.ADMIN),
     allEmojis: emojis.split(','),
     fishSpecies: fishSpecies.split(','),
     fishEmoji: fishEmoji,
