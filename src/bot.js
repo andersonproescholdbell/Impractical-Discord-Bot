@@ -22,7 +22,7 @@ client.on('ready', () => {
             }
         }
             
-    }, 60000);
+    }, 120000);
 
     var i = 0;
     setInterval(async () => {
@@ -32,7 +32,7 @@ client.on('ready', () => {
             console.log(error);
         }    
         i++;
-    }, 60000);
+    }, 120000);
 });
 
 client.on('message', async (message) => {
@@ -58,17 +58,27 @@ client.on('message', async (message) => {
             }
             dangerous = dangerous.substr(0, dangerous.length-2);
             message.channel.send(`STEP AWAY FROM THE FISH ${dangerous}`);
+            console.log('Told the hecklers to step away from the fish.');
         }
 
         if (command.substr(0, 7) == 'insult ') {
-            fetch(vars.url2).then((res) => {return res.text();}).then((text) => {
-                message.channel.send(`Hey, ${command.split(' ')[1]},  ${text.replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&gt;/g, '>')}`);
+            fetch(vars.urls.insult1).then((res) => {return res.text();}).then((text) => {
+                message.channel.send(`Hey, ${message.mentions.users.first()},  ${text}`);
+                console.log(`Insulted ${message.mentions.users.first().username}`);
             });
         }
 
         if (command.substr(0, 8) == 'insult2 ') {
-            fetch(vars.url3).then((res) => {return res.text();}).then((text) => {
-                message.channel.send(`Hey, ${command.split(' ')[1]},  ${text.replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&gt;/g, '>')}`);
+            fetch(vars.urls.insult2).then((res) => {return res.json();}).then((json) => {
+                message.channel.send(`Hey, ${message.mentions.users.first()},  ${json.insult}`);
+                console.log(`Insulted ${message.mentions.users.first().username}`);
+            });
+        }
+
+        if (command.substr(0,11) == 'compliment ') {
+            fetch(vars.urls.compliment).then((res) => {return res.json();}).then((json) => {
+                message.channel.send(`Hey, ${message.mentions.users.first()},  ${json.compliment}`);
+                console.log(`Complimented ${message.mentions.users.first().username}`);
             });
         }
 
@@ -77,6 +87,7 @@ client.on('message', async (message) => {
         }
 
         if (command.substr(0,7) == 'profile') {
+            console.log('Profile request');
             if (message.embeds.length > 0) {
                 try {
                     await client.user.setAvatar(message.embeds[0].url);
@@ -84,10 +95,9 @@ client.on('message', async (message) => {
                 } catch(error) {
                     console.log('Changing avatar too fast');
                 }
+            } else {
+                console.log('No profile pic embed.');
             }
-            /*} else {
-                client.user.setAvatar(message.author.displayAvatarURL());
-            }*/
         }
 
         if (command.substr(0,7) == 'fishify' && message.author.id == vars.ADMIN) {
@@ -120,12 +130,35 @@ client.on('message', async (message) => {
                 message.reply('Something went wrong, sorry.');
             }
         }
+
+        if (command.substr(0, 3) == 'gif') {
+            try {
+                if (command.substr(4, command.lenth) == 'random') {
+                    fetch(vars.urls.giphyRandom.replace('MYKEY', vars.GIPHY_KEY)).then((res) => {return res.json();}).then((json) => {
+                        message.channel.send(`${json.data.url}`);
+                        console.log(`Sent random gif ${json.data.url}`);
+                    });
+                } else {
+                    var search = command.substr(4, command.lenth);
+                    fetch(vars.urls.giphySearch.replace('QUERY', search).replace('MYKEY', vars.GIPHY_KEY)).then((res) => {return res.json();}).then((json) => {
+                        message.channel.send(`${json.data[0].url}`);
+                        console.log(`Sent gif search of ${search} ${json.data[0].url}`);
+                    });
+                }
+            } catch(error) {
+                console.log('Possibly too many GIPHY requests.');
+            }
+        }
+
+        if (command == 'help') {
+            message.channel.send(vars.helpMessage);
+        }
     }
 
     if (vars.blacklist.includes(message.author.tag) && message.content.toLowerCase().includes('fish')) {
         Promise.all([
-            fetch(vars.url1),
-            fetch(vars.url2)
+            fetch(vars.urls.leaveAlone),
+            fetch(vars.urls.insult1)
         ]).then((responses) => {
             return Promise.all(responses.map((response) => {
                 const contentType = response.headers.get('content-type');

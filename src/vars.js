@@ -12,9 +12,14 @@ var fishSpecies = "African glass catfish,African lungfish,Aholehole,Airsac catfi
 
 const fishEmoji = [":fish:", ":tropical_fish:", ":blowfish:", ":fishing_pole_and_fish:"];
 
-const url1 = 'https://insult.mattbas.org/api/insult.txt?template=' + 'Leave the fish alone you <adjective min=2 max=5> <animal> <animal_part>. ';
-const url2 = 'https://evilinsult.com/generate_insult.php?lang=en';//&type=json';
-const url3 = 'https://insult.mattbas.org/api/insult.txt?template=' + 'You actual <adjective> <animal>. You are even more <adjective> than a <amount> of <adjective min=1 max=3> <animal> <animal_part>s!';
+const urls = {
+    'leaveAlone': 'https://insult.mattbas.org/api/insult.txt?template=' + 'Leave the fish alone you <adjective min=2 max=5> <animal> <animal_part>. ',
+    'insult1': 'https://insult.mattbas.org/api/insult.txt?template=' + 'You actual <adjective> <animal>. You are even more <adjective> than a <amount> of <adjective min=1 max=3> <animal> <animal_part>!',
+    'insult2': 'https://evilinsult.com/generate_insult.php?lang=en&type=json',
+    'compliment': 'https://complimentr.com/api',
+    'giphyRandom': 'https://api.giphy.com/v1/gifs/random?api_key=MYKEY',
+    'giphySearch': 'https://api.giphy.com/v1/gifs/search?q=QUERY&api_key=MYKEY&limit=1'
+}
 
 var users = [];
 
@@ -22,16 +27,23 @@ var statuses = ['online', 'idle', 'dnd', 'invisible'];
 
 var fishify = {};
 
+const helpMessage =['#fishindanger', '#identify', '#insult {USER}', '#insult2 {USER}', '#compliment {USER}', '#fishify {INTERVAL IN MS} {USER}\t\t(restricted)',
+                    '#gif random', '#gif {QUERY}'];
+
 module.exports = {
     blacklist: blacklist,
     ADMIN: parseInt(process.env.ADMIN),
+    GIPHY_KEY: process.env.GIPHY_KEY,
     allEmojis: emojis.split(','),
     fishSpecies: fishSpecies.split(','),
     fishEmoji: fishEmoji,
-    url1: url1,
-    url2: url2,
-    url3: url3,
+    urls: urls,
     users: users,
     statuses: statuses,
-    fishify: fishify
+    fishify: fishify,
+    helpMessage: helpMessage.join('\n')
 }
+
+/* Old useful code
+client.user.setAvatar(message.author.displayAvatarURL());
+*/
