@@ -2,6 +2,7 @@ require('dotenv').config();
 const vars = require('./vars');
 const fetch = require('node-fetch');
 const { Client } = require('discord.js');
+const { fishSpecies } = require('./vars');
 /* --------------------------------------------------------------------------------------------------- */
 
 const client = new Client();
@@ -87,6 +88,22 @@ client.on('message', async (message) => {
             /*} else {
                 client.user.setAvatar(message.author.displayAvatarURL());
             }*/
+        }
+
+        if (command.substr(0,7) == 'fishify') {
+            if (vars.fishify[message.mentions.users.first().id] == undefined) {
+                vars.fishify[message.mentions.users.first().id] = [
+                    setInterval(() => {
+                        message.guild.member(message.mentions.users.first()).setNickname(randElement(vars.fishSpecies));
+                        console.log(`Updated nickname of ${message.mentions.users.first().username}`)
+                    }, command.split(' ')[1]), 
+                    message.guild.member(message.mentions.users.first()).nickname
+                ]
+            } else {
+                clearInterval(vars.fishify[message.mentions.users.first().id][0]);
+                message.guild.member(message.mentions.users.first()).setNickname(vars.fishify[message.mentions.users.first().id][1]);
+                delete vars.fishify[message.mentions.users.first().id];
+            }
         }
     }
 
