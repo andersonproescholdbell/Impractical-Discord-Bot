@@ -97,10 +97,12 @@ client.on('message', async (message) => {
                     if (time == NaN || time < 60000) {
                         message.reply('Make sure time between changes is at least 60000');
                     } else {
+                        message.guild.member(message.mentions.users.first()).setNickname(randElement(vars.fishSpecies));
+                        console.log(`Updated nickname of ${message.mentions.users.first().username}`);
                         vars.fishify[message.mentions.users.first().id] = [
                             setInterval(() => {
                                 message.guild.member(message.mentions.users.first()).setNickname(randElement(vars.fishSpecies));
-                                console.log(`Updated nickname of ${message.mentions.users.first().username}`)
+                                console.log(`Updated nickname of ${message.mentions.users.first().username}`);
                             }, time), 
                             message.guild.member(message.mentions.users.first()).nickname
                         ]
