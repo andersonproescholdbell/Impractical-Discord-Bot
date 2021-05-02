@@ -91,18 +91,31 @@ client.on('message', async (message) => {
         }
 
         if (command.substr(0,7) == 'fishify') {
-            if (vars.fishify[message.mentions.users.first().id] == undefined) {
-                vars.fishify[message.mentions.users.first().id] = [
-                    setInterval(() => {
-                        message.guild.member(message.mentions.users.first()).setNickname(randElement(vars.fishSpecies));
-                        console.log(`Updated nickname of ${message.mentions.users.first().username}`)
-                    }, command.split(' ')[1]), 
-                    message.guild.member(message.mentions.users.first()).nickname
-                ]
-            } else {
-                clearInterval(vars.fishify[message.mentions.users.first().id][0]);
-                message.guild.member(message.mentions.users.first()).setNickname(vars.fishify[message.mentions.users.first().id][1]);
-                delete vars.fishify[message.mentions.users.first().id];
+            var time = parseInt(command.split(' ')[1]);
+            try {
+                if (vars.fishify[message.mentions.users.first().id] == undefined) {
+                    if (time == NaN || time < 60000) {
+                        message.reply('Make sure time between changes is at least 60000');
+                    } else {
+                        vars.fishify[message.mentions.users.first().id] = [
+                            setInterval(() => {
+                                message.guild.member(message.mentions.users.first()).setNickname(randElement(vars.fishSpecies));
+                                console.log(`Updated nickname of ${message.mentions.users.first().username}`)
+                            }, time), 
+                            message.guild.member(message.mentions.users.first()).nickname
+                        ]
+                    }
+                } else {
+                    try {
+                        clearInterval(vars.fishify[message.mentions.users.first().id][0]);
+                        message.guild.member(message.mentions.users.first()).setNickname(vars.fishify[message.mentions.users.first().id][1]);
+                        delete vars.fishify[message.mentions.users.first().id];
+                    } catch(error) {
+                        console.log('No interval to delete');
+                    }
+                }
+            } catch(error) {
+                message.reply('Something went wrong, sorry.');
             }
         }
     }
