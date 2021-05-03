@@ -19,7 +19,8 @@ const urls = {
     'compliment': 'https://complimentr.com/api',
     'giphyRandom': 'https://api.giphy.com/v1/gifs/random?api_key=MYKEY',
     'giphySearch': 'https://api.giphy.com/v1/gifs/search?q=QUERY&api_key=MYKEY&limit=1',
-    'advice': 'https://api.adviceslip.com/advice'
+    'advice': 'https://api.adviceslip.com/advice',
+    'dog': 'https://random.dog/woof.json'
 }
 
 var users = [];

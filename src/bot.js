@@ -158,6 +158,13 @@ client.on('message', async (message) => {
             });
         }
 
+        if (command == 'dog') {
+            fetch(vars.urls.dog).then((res) => {return res.json();}).then((json) => {
+                message.channel.send(`${json.url}`);
+                console.log(`Sent dog ${json.url}`);
+            });
+        }
+
         if (command == 'help') {
             message.channel.send(vars.helpMessage);
         }
