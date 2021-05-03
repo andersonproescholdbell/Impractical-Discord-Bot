@@ -30,7 +30,7 @@ var statuses = ['online', 'idle', 'dnd', 'invisible'];
 var fishify = {};
 
 const helpMessage =['#fishindanger', '#identify', '#insult {USER}', '#insult2 {USER}', '#compliment {USER}', '#fishify {INTERVAL IN MS} {USER}\t\t(restricted)',
-                    '#gif random', '#gif {QUERY}', '#advice'];
+                    '#gif random', '#gif {QUERY}', '#advice', '#dog'];
 
 module.exports = {
     blacklist: blacklist,

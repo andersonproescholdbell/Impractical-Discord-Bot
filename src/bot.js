@@ -1,8 +1,7 @@
 require('dotenv').config();
 const vars = require('./vars');
 const fetch = require('node-fetch');
-const { Client } = require('discord.js');
-const { fishSpecies } = require('./vars');
+const { Client, Discord } = require('discord.js');
 /* --------------------------------------------------------------------------------------------------- */
 
 const client = new Client();
