@@ -150,6 +150,13 @@ client.on('message', async (message) => {
             }
         }
 
+        if (command == 'advice') {
+            fetch(vars.urls.advice).then((res) => {return res.json();}).then((json) => {
+                message.channel.send(`${json.advice}`);
+                console.log(`Sent advice: ${json.advice}`);
+            });
+        }
+
         if (command == 'help') {
             message.channel.send(vars.helpMessage);
         }

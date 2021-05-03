@@ -18,7 +18,8 @@ const urls = {
     'insult2': 'https://evilinsult.com/generate_insult.php?lang=en&type=json',
     'compliment': 'https://complimentr.com/api',
     'giphyRandom': 'https://api.giphy.com/v1/gifs/random?api_key=MYKEY',
-    'giphySearch': 'https://api.giphy.com/v1/gifs/search?q=QUERY&api_key=MYKEY&limit=1'
+    'giphySearch': 'https://api.giphy.com/v1/gifs/search?q=QUERY&api_key=MYKEY&limit=1',
+    'advice': 'https://api.adviceslip.com/advice'
 }
 
 var users = [];
@@ -28,7 +29,7 @@ var statuses = ['online', 'idle', 'dnd', 'invisible'];
 var fishify = {};
 
 const helpMessage =['#fishindanger', '#identify', '#insult {USER}', '#insult2 {USER}', '#compliment {USER}', '#fishify {INTERVAL IN MS} {USER}\t\t(restricted)',
-                    '#gif random', '#gif {QUERY}'];
+                    '#gif random', '#gif {QUERY}', '#advice'];
 
 module.exports = {
     blacklist: blacklist,
