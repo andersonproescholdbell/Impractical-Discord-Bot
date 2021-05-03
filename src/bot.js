@@ -24,7 +24,8 @@ client.on('ready', () => {
             
     }, 120000);
 
-    var i = 0;
+    client.user.setStatus('invisible');
+    /*var i = 0;
     setInterval(async () => {
         try {
             await client.user.setStatus(vars.statuses[i%3]).then(() => console.log(`Updated status to ${vars.statuses[i%3]}`))
@@ -32,7 +33,7 @@ client.on('ready', () => {
             console.log(error);
         }    
         i++;
-    }, 120000);
+    }, 120000);*/
 });
 
 client.on('message', async (message) => {
@@ -152,8 +153,8 @@ client.on('message', async (message) => {
 
         if (command == 'advice') {
             fetch(vars.urls.advice).then((res) => {return res.json();}).then((json) => {
-                message.channel.send(`${json.advice}`);
-                console.log(`Sent advice: ${json.advice}`);
+                message.channel.send(`${json.slip.advice}`);
+                console.log(`Sent advice: ${json.slip.advice}`);
             });
         }
 
